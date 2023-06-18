@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="favicon.ico">
+  <title>{{ .Title }}</title>
+  <style>{{ .CSS }}</style>
+</head>
+<div class="container">
+{{ template "header" }}
+{{ template "globalStat" . }}
+{{ template "nodePorts" . }}
+{{ template "incidents" }}
+{{ template "footer" }}
+</div>
+</html>
+
+
+{{ define "header" }}
+{{ end }}
+
+{{ define "globalStat" }}
+<h1>Global Status</h1>
+    <ul>
+      <li class="panel {{ .GlobalStatus }}">{{ .GlobalStatusText }}</li>
+    </ul>
+{{ end }}
+
+{{ define "nodePorts" }}
+<h1>NodePorts</h1>
+    <ul>{{ range .NodePorts }}
+        <a href="{{ .Endpoint }}:{{ .Port }}" class="link" target="_blank" rel="noopener noreferrer"><li>{{ .Name }}{{ if not .StatusOK }}<span class="small .Status"></span>{{ end }}<span class="status {{ .Status }}">{{ .StatusText }}</span></li></a>
+    {{ end }}</ul>
+    <p class="small"> Last check: {{ .TimeStamp }}</p>
+{{ end }}
+
+{{ define "incidents" }}
+<h1>Incidents</h1>
+    <p>2021/01/01 09:00 - User may have problem with API. Incident resolved after 1 hour.</p>
+    <p>2021/02/01 08:00 - Site unavailable. Resolved after 5 minutes of downtime.</p>
+{{ end }}
+
+{{ define "footer" }}
+{{ end }}
